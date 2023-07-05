@@ -1,3 +1,9 @@
+const items = [
+  { description: "Orange", amount: 5, category: "Groceries" },
+  { description: "Apple", amount: 7, category: "Groceries" },
+  { description: "Phone", amount: 900, category: "Electronic" },
+];
+
 const ExpenseList = () => {
   return (
     <div>
@@ -11,16 +17,18 @@ const ExpenseList = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Item 1</td>
-            <td>4</td>
-            <td>Cat 1</td>
-            <td>
-              <button type="button" className="btn btn-danger">
-                Delete
-              </button>
-            </td>
-          </tr>
+          {items.map((item, index) => (
+            <tr key={index}>
+              <td>{item.description}</td>
+              <td>{item.amount}</td>
+              <td>{item.category}</td>
+              <td>
+                <button type="button" className="btn btn-danger">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
