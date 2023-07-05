@@ -1,10 +1,17 @@
-const items = [
-  { description: "Orange", amount: 5, category: "Groceries" },
-  { description: "Apple", amount: 7, category: "Groceries" },
-  { description: "Phone", amount: 900, category: "Electronic" },
-];
+interface Item {
+  id: number;
+  description: string;
+  amount: number;
+  category: string;
+}
 
-const ExpenseList = () => {
+interface Props {
+  items: Item[];
+  onDelete: (id: number) => void;
+}
+
+const ExpenseList = ({ items, onDelete }: Props) => {
+  if (items.length === 0) return null;
   return (
     <div>
       <table className="table">
@@ -17,19 +24,31 @@ const ExpenseList = () => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => (
-            <tr key={index}>
+          {items.map((item) => (
+            <tr key={item.id}>
               <td>{item.description}</td>
               <td>{item.amount}</td>
               <td>{item.category}</td>
               <td>
-                <button type="button" className="btn btn-danger">
+                <button
+                  onClick={() => onDelete(item.id)}
+                  type="button"
+                  className="btn btn-danger"
+                >
                   Delete
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td>${items.reduce((acc, item) => item.amount + acc, 0)}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
